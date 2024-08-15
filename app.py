@@ -7,16 +7,16 @@ app = Flask(__name__)
 
 def get_db_connection():
     return mysql.connector.connect(
-        host="root",  # Replace with your MySQL server address
-        user="your_username",  # Replace with your MySQL username
-        password="your_password",  # Replace with your MySQL password
-        database="your_database"  # Replace with your MySQL database name
+        host="localhost",
+        user="root",
+        password="haidt261qaz@",
+        database="scholarship_management"
     )
 
 def get_spark_session():
     return SparkSession.builder \
         .appName("Flask_PySpark_MySQL") \
-        .config("spark.jars", "/path/to/mysql-connector-java-8.0.32.jar") \
+        .config("spark.jars", "mysql-connector-j-9.0.0/mysql-connector-j-9.0.0.jar") \
         .getOrCreate()
 
 
@@ -24,7 +24,7 @@ def get_spark_session():
 def home():
     method = request.method
     if method == "GET":
-        return render_template("index.html", data=[])
+        return render_template("index.html", data=[], country='', deadline='', major='')
     else:
         country = request.form.get('country')
         deadline = request.form.get('deadline')
@@ -66,18 +66,17 @@ def home():
 
         spark = get_spark_session()
         # MySQL connection properties
-        jdbc_url = "jdbc:mysql://localhost:3306/your_database"
+        jdbc_url = "jdbc:mysql://localhost:3306/scholarship_management"
         connection_properties = {
-            "user": "your_username",
-            "password": "your_password",
+            "user": "root",
+            "password": "haidt261qaz@",
             "driver": "com.mysql.cj.jdbc.Driver"
         }
 
         # Load data from MySQL table into a DataFrame
-        df = spark.read.jdbc(url=jdbc_url, table="your_table", properties=connection_properties)
+        df = spark.read.jdbc(url=jdbc_url, table="scholarships", properties=connection_properties)
 
-        # Perform some query using PySpark SQL (optional)
-        table_view = "your_table_view"
+        table_view = "test"
         df.createOrReplaceTempView(table_view)
         
 
@@ -89,7 +88,7 @@ def home():
             if deadline:
                 conditions.append(f" deadline < '{deadline}' ")
             if major:
-                conditions.append(f" fields_of_study like '%{major}%' ")
+                conditions.append(f" (fields_of_study like '%{major}%' or fields_of_study = 'Unrestricted')")
 
             if len(conditions) == 1:
                 query += " WHERE " + conditions[0]
@@ -105,7 +104,7 @@ def home():
         # Collect the data into a list of rows
         data = result_df.collect()
         data = [row.asDict() for row in data]
-        return render_template("index.html", data=data)
+        return render_template("index.html", data=data, major=major, country=country, deadline=deadline)
 
 
 if __name__ == "__main__":

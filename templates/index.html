@@ -56,11 +56,11 @@
     <div >
         <form action="{{ url_for('home') }}" method="post" class="search-container">
             <label for="country">Country :</label>
-            <input type="text" id="country" name="country" placeholder="Enter country">
+            <input type="text" id="country" name="country" placeholder="Enter country" value="{{country}}">
             <label for="deadline">Deadline :</label>
-            <input type="date" id="deadline" name="deadline" placeholder="Enter deadline">
+            <input type="date" id="deadline" name="deadline" placeholder="Enter deadline" value="{{deadline}}">
             <label for="major">Search Term:</label>
-            <input type="text" id="major" name="major" placeholder="Enter search term">
+            <input type="text" id="major" name="major" placeholder="Enter search term" value="{{major}}">
             <button type="submit">Search</button>
         </form>
         <h1 style="text-align: center;">Scholarship List</h1>
@@ -78,23 +78,25 @@
                 <th>Majors</th>
                 <th>Target Country</th>
                 <th>Coverage</th>
+                <th>Number of Scholarship</th>
                 <th>Link</th>
             </tr>
             {% for item in data %}
             <tr>
-                <td>{{ item[0] }}</td>
-                <td>{{ item[1] }}</td>
-                <td>{{ item[2] }}</td>
-                <td>{{ item[3] }}</td>
-                <td>{{ item[4] }}</td>
-                <td>{{ item[5] }}</td>
-                <td>{{ item[6] }}</td>
-                <td>{{ item[7] }}</td>
-                <td>{{ item[8] }}</td>
-                <td>{{ item[9] }}</td>
-                <td>{{ item[10] }}</td>
-                <td>{{ item[11] }}</td>
-                <td>{{ item[12] }}</td>
+                <td>{{ item['id'] }}</td>
+                <td>{{ item['title'] }}</td>
+                <td>{{ item['deadline'] }}</td>
+                <td>{{ item['provider'] }}</td>
+                <td>{{ item['provider_type'] }}</td>
+                <td>{{ item['amount'] }}</td>
+                <td>{{ item['location'] }}</td>
+                <td>{{ item['description'] }}</td>
+                <td>{{ item['eligibility'] }}</td>
+                <td>{{ item['fields_of_study'] }}</td>
+                <td>{{ item['target_country'] }}</td>
+                <td>{{ item['coverage'] }}</td>
+                <id>{{ item['number_of_scholarships']}}</id>
+                <td>{{ item['link'] }}</td>
             </tr>
             {% endfor %}
         </table>
