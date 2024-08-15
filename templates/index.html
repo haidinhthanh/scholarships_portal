@@ -78,8 +78,8 @@
                 <th>Majors</th>
                 <th>Target Country</th>
                 <th>Coverage</th>
-                <th>Number of Scholarship</th>
                 <th>Link</th>
+                <th>Number of Scholarship</th>
             </tr>
             {% for item in data %}
             <tr>
@@ -95,8 +95,8 @@
                 <td>{{ item['fields_of_study'] }}</td>
                 <td>{{ item['target_country'] }}</td>
                 <td>{{ item['coverage'] }}</td>
-                <id>{{ item['number_of_scholarships']}}</id>
                 <td>{{ item['link'] }}</td>
+                <td>{{ item['number_of_scholarships'] }}</td>
             </tr>
             {% endfor %}
         </table>

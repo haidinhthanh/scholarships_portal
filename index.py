@@ -27,7 +27,6 @@ print('exe')
 mydb.commit()
 
 print(mycursor.rowcount, "was inserted.")
-print(df['fields_of_study'])
 # {
 #     "title": "",
 #     "deadline": ""
