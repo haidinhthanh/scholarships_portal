@@ -30,6 +30,40 @@ def home():
         deadline = request.form.get('deadline')
         major = request.form.get('major')
 
+        # db = get_db_connection()
+        # cursor = db.cursor()
+
+        # table_view = ''
+        # # Query the database for all users
+        # query = f"SELECT * FROM {table_view}"
+        # if country or deadline or major:
+        #     conditions = []
+        #     if country:
+        #         conditions.append(f" location like '%{country}%' ")
+        #     if deadline:
+        #         conditions.append(f" deadline < '{deadline}' ")
+        #     if major:
+        #         conditions.append(f" fields_of_study like '%{major}%' ")
+
+        #     if len(conditions) == 1:
+        #         query += " WHERE " + conditions[0]
+            
+        #     else:
+        #         query +=  " WHERE " + "AND".join(conditions)
+
+        # else:
+        #     query += " LIMIT 20"
+
+        # cursor.execute(query)
+        # data = cursor.fetchall()
+
+        # # Close the database connection
+        # cursor.close()
+        # db.close()
+
+        # return data
+
+
         spark = get_spark_session()
         # MySQL connection properties
         jdbc_url = "jdbc:mysql://localhost:3306/your_database"
@@ -47,7 +81,7 @@ def home():
         df.createOrReplaceTempView(table_view)
         
 
-        query = f"SELECT id, name, email FROM {table_view}"
+        query = f"SELECT * FROM {table_view}"
         if country or deadline or major:
             conditions = []
             if country:
