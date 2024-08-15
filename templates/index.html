@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .search-container {
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+            margin: 50px auto;
+        }
+        label {
+            margin-bottom: 10px;
+            margin-top: 30px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            width: 50%;
+            margin: 50px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Search Page</h1>
+    <div >
+        <form action="{{ url_for('home') }}" method="post" class="search-container">
+            <label for="country">Country :</label>
+            <input type="text" id="country" name="country" placeholder="Enter country">
+            <label for="deadline">Deadline :</label>
+            <input type="date" id="deadline" name="deadline" placeholder="Enter deadline">
+            <label for="major">Search Term:</label>
+            <input type="text" id="major" name="major" placeholder="Enter search term">
+            <button type="submit">Search</button>
+        </form>
+        <h1 style="text-align: center;">Scholarship List</h1>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Deadline</th>
+                <th>Provider</th>
+                <th>Provider Type</th>
+                <th>Amount</th>
+                <th>Location</th>
+                <th>Description</th>
+                <th>Eligibility</th>
+                <th>Majors</th>
+                <th>Target Country</th>
+                <th>Coverage</th>
+                <th>Link</th>
+            </tr>
+            {% for item in data %}
+            <tr>
+                <td>{{ item[0] }}</td>
+                <td>{{ item[1] }}</td>
+                <td>{{ item[2] }}</td>
+                <td>{{ item[3] }}</td>
+                <td>{{ item[4] }}</td>
+                <td>{{ item[5] }}</td>
+                <td>{{ item[6] }}</td>
+                <td>{{ item[7] }}</td>
+                <td>{{ item[8] }}</td>
+                <td>{{ item[9] }}</td>
+                <td>{{ item[10] }}</td>
+                <td>{{ item[11] }}</td>
+                <td>{{ item[12] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>
